@@ -2,92 +2,109 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Spring MVC demo</title>
-<style>
-body {
-	font-size: 20px;
-	color: teal;
-	font-family: Calibri;
-}
+<title>Being Java Guys | Spring DI Hello World</title>
 
-td {
-	font-size: 15px;
-	color: black;
-	width: 100px;
-	height: 22px;
-	text-align: center;
-}
-
-.heading {
-	font-size: 18px;
-	color: white;
-	font: bold;
-	background-color: orange;
-	border: thick;
-}
-</style>
+<link
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script type="text/javascript"
+	src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#myTable').dataTable();
+	});
+</script>
 </head>
 <body>
 	<center>
-
-
-
-		<h1>Account List | Being Java Spring MVC </h1>  
-		<table border="1">
-			<tr>
-				<td class="heading">User Id</td>
-				<td class="heading">Name</td>
-				<td class="heading">Time</td>
-				<td class="heading">Status</td>
-				<td class="heading">Is Public</td>
-				<td class="heading">Edit</td>
-				<td class="heading">Delete</td>
-			</tr>
-			<c:forEach var="acc" items="${accountList}">
+	<h1>User List | Being Java Guys</h1>
+	<div class="table-responsive">
+		<table id="myTable" class="table table-striped table-bordered"
+			width="100%" cellspacing="0">
+			<thead>
 				<tr>
-					<td>${acc.id}</td>
-					<td>${acc.name}</td>
-					<td>${acc.time}</td>
-					<td>${acc.status}</td>
-					<td>${acc.isPublic}</td>
-					<td><a href="edit?id=${acc.id}">Edit</a></td>
-					<td><a href="delete?id=${acc.id}">Delete</a></td>
+					<th>User Id</th>
+					<th>Name</th>
+					<th>Time</th>
+					<th>Status</th>
+					<th>Is Public</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
-			</c:forEach> 
-			<tr><td colspan="7"><a href="register">Add New User</a></td></tr>  
-  </table>   
-	<b>Being Java Guys | Registration Form </b>   
-  
-    
-  
-   <form:form method="post" action="/addAccount" modelAttribute="account">  
-    <table>  
-     <tr>  
-      <td>First Name :</td>  
-      <td><form:input path="name"  /></td>  
-     </tr>  
-     <tr>  
-      <td>Time :</td>  
-      <td><form:input path="time" /></td>  
-     </tr>  
-     <tr>  
-      <td>Status :</td>  
-      <td><form:input path="status" /></td> 
-     </tr>  
-     <tr>  
-      <td>Is public :</td>  
-      <td><form:input path="isPublic" /></td>  
-     </tr>  
-     <tr>  
-      <td> </td>  
-      <td><input type="submit" value="Save" /></td>  
-     </tr>    
-    </table>  
-   </form:form>  	
+			</thead>
+			<tbody>
+				<c:forEach var="acc" items="${map.Accounts}">
+					<tr>
+						<td>${acc.id}</td>
+						<td>${acc.name}</td>
+						<td>${acc.time}</td>
+						<td>${acc.status}</td>
+						<td>${acc.isPublic}</td>
+						<td><a href="edit?id=${acc.id}">Edit</a></td>
+						<td><a href="delete?id=${acc.id}">Delete</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	 <div class="row">
+  <div class="col-sm-4"> 
+  		<a href="register" class="btn btn-info" role="button">Add new Account</a>
+  		</div>
+  <div class="col-sm-4">
+  	<form:form method="post" action="/SpringDemo/saveAccount"
+		modelAttribute="account">
+		<table>
+			<tr>
+				<td>ID :</td>
+				<td><form:input path="id" value="${map.account.id}"
+						readonly="true" /></td>
+			</tr>
+			<tr>
+				<td>First Name :</td>
+				<td><form:input path="name" value="${map.account.name}" /></td>
+			</tr>
+			<tr>
+				<td>Time :</td>
+				<td><form:input path="time" value="${map.account.time}" /></td>
+			</tr>
+			<tr>
+				<td>Status :</td>
+				<td><form:select path="status">
+						<form:option value="${map.account.status}" />
+						<form:option value="Dang su dung" />
+						<form:option value="Tam khoa" />
+						<form:option value="Het han" />
+
+					</form:select></td>
+			</tr>
+			<tr>
+				<td>Is public :</td>
+				<td><form:input path="isPublic" value="${map.account.isPublic}" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Save" /></td>
+			</tr>
+		</table>
+	</form:form> 
+  </div>
+  <div class="col-sm-4"><div class="alert alert-success">
+  <strong>Console:</strong>   ${map.mess }.
+</div>
+   </div>
+</div>
+	
 	</center>
 </body>
 </html>

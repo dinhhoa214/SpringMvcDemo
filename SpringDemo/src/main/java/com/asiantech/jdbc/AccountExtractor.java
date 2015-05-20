@@ -17,7 +17,7 @@ public class AccountExtractor implements ResultSetExtractor<Account> {
     
   account.setId(resultSet.getInt(1));
   account.setName(resultSet.getString(2)); 
-  account.setTime(resultSet.getDate(3));
+  account.setTime(resultSet.getString(3));
   account.setStatus(resultSet.getString(4));
   account.setIsPublic(resultSet.getString(5));
   return account;  

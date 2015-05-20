@@ -21,8 +21,7 @@ public class AccountDaoImpl implements AccountDao {
 		System.out.println(account.getId()); 
 		if (account.getId() > 0) {
 			// update
-			String sql = "UPDATE Account SET name=?, modiferTime=?, status=?, "
-					+ "isPulic=? WHERE id=?";
+			String sql = "UPDATE Account SET name=?, modiferTime=?, status=?, isPublic=? WHERE id=?";
 			jdbcTemplate.update(sql, account.getName(), account.getTime(),
 							account.getStatus(), account.getIsPublic(),
 							account.getId());
@@ -53,8 +52,7 @@ public class AccountDaoImpl implements AccountDao {
 	public List<Account> getAll() {
 		String sql = "SELECT * FROM Account";
 		List<Account> listAccount = new ArrayList<Account>();
-		listAccount = jdbcTemplate.query(sql, new AccountRowMapper()); 
-		System.out.println(listAccount.get(1).toString()+"aa");
+		listAccount = jdbcTemplate.query(sql, new AccountRowMapper());  
 		return listAccount;
 	}
 
