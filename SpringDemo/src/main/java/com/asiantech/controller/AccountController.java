@@ -34,12 +34,10 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
-	public String saveAccount(@ModelAttribute("account") Account account) {
-		System.out.println("Account Saved");
-		System.out.println(account.getId());
+	public String saveAccount(@ModelAttribute("account") Account account) { 
 		if (account != null)
 			accountSv.save(account); 
-
+		message = " Saved id = " + account.getId();
 		return "redirect:/getList";
 	}
 
@@ -47,13 +45,8 @@ public class AccountController {
 	public String getPageRes() {
 		message = " ";
 		return "redirect:/getList";
-	}
-
-	@RequestMapping("/pageBoot")
-	public String getPageBoot() {
-		return "boot";
-	}
-
+	} 
+	
 	@RequestMapping("/delete")
 	public String deleteAccount(@RequestParam int id) {
 		message = " Deleted id = " + id;
@@ -67,7 +60,7 @@ public class AccountController {
 			@ModelAttribute Account account) {
 		account = accountSv.getById(id);
 		List<Account> accountList = accountSv.getAll();
-		message = " Updated id = " + id;
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("Accounts", accountList);
 		map.put("account", account);
